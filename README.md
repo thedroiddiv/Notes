@@ -1,5 +1,10 @@
 # Notes
-## A simple note taking app with firebase data backup
+A simple and awesome notepad app. It gives you a quick and simple notepad editing experience when you write notes, memos, e-mails, messages, shopping lists and to-do lists.The app can work both offline as well as online, as the internet gets available to the device ,data gets synced to firestore. Users can login with different google accounts.
+
+### Key Features
+- User authentiation with google
+- Offline accessibility
+- Backup to firestore
 
 ### Screenshots
 <div>
