@@ -37,7 +37,7 @@ constructor(
 
     private fun loadNotes() {
         getAllJob?.cancel()
-       getAllJob =  noteRepository.getAllNotes().onEach {
+        getAllJob = noteRepository.getAllNotes().onEach {
             when (it) {
                 is Result.Success -> {
                     _notes.value = it.data!!
@@ -54,7 +54,9 @@ constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun deleteNote() {
-
+    fun removeNote(uid: String) {
+        viewModelScope.launch {
+            noteRepository.removeNote(uid)
+        }
     }
 }

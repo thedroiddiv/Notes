@@ -61,4 +61,16 @@ class NoteRepositoryImpl(
         }
     }
 
+    override suspend fun removeNote(uid: String): Result<Boolean> {
+        return try {
+            userCollection.document(auth.uid!!)
+                .collection("notes")
+                .document(uid)
+                .delete()
+            Result.Success(true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Result.Error(e.message)
+        }
+    }
 }

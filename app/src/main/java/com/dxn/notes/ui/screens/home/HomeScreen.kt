@@ -3,7 +3,6 @@ package com.dxn.notes.ui.screens.home
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -31,6 +30,7 @@ import com.dxn.notes.ui.screens.AppViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
 fun HomeScreen(
@@ -41,6 +41,8 @@ fun HomeScreen(
 ) {
 
     val notes by remember { viewModel.note }
+    var isDialogVisible by remember { mutableStateOf(false) }
+
 
     Scaffold(
         modifier = Modifier
@@ -66,18 +68,16 @@ fun HomeScreen(
                     modifier = Modifier.padding(start = 4.dp),
                     text = stringResource(id = R.string.app_name)
                 )
-                IconButton(onClick = { }) {
+                IconButton(onClick = { isDialogVisible = true }) {
                     Image(
                         modifier = Modifier
                             .clip(CircleShape)
-                            .size(32.dp)
-                            .clickable { },
+                            .size(32.dp),
                         painter = rememberImagePainter(data = user.photoUrl),
                         contentDescription = "Profile Picture"
                     )
                 }
             }
-
             Spacer(modifier = Modifier.height(8.dp))
             SearchBar(
                 value = searchQuery,
@@ -110,18 +110,49 @@ fun HomeScreen(
             }
             LazyVerticalGrid(cells = GridCells.Fixed(2)) {
                 items(notes) { note ->
-                    NoteBox(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        note = note,
-                        onClick = {
-                            val data = Uri.encode(Gson().toJson(note))
-                            navController.navigate(Screens.Edit.route + "?note=$data")
+                    val dismissState = rememberDismissState(
+                        initialValue = DismissValue.Default,
+                        confirmStateChange = {
+                            viewModel.removeNote(note.uid)
+                            it != DismissValue.DismissedToEnd || it != DismissValue.DismissedToStart
                         }
                     )
+                    SwipeToDismiss(state = dismissState, background = {}) {
+                        NoteBox(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            note = note,
+                            onClick = {
+                                val data = Uri.encode(Gson().toJson(note))
+                                navController.navigate(Screens.Edit.route + "?note=$data")
+                            }
+                        )
+                    }
+
                 }
             }
+            if (isDialogVisible) {
+                AlertDialog(
+                    onDismissRequest = { isDialogVisible = false },
+                    confirmButton = {
+                        TextButton(onClick = signOut) {
+                            Text(text = "Yes")
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { isDialogVisible = false }) {
+                            Text(text = "No")
+                        }
+                    },
+                    title = {
+                        Text(text = "Sign out?")
+                    },
+                    backgroundColor = MaterialTheme.colors.background,
+                    contentColor = MaterialTheme.colors.onBackground
+                )
+            }
+
         }
     }
 }

@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 
 
@@ -20,7 +22,7 @@ fun TransparentTextField(
     onValueChange: (String) -> Unit,
     textStyle: TextStyle = TextStyle(),
     isSingleLine: Boolean = false,
-    onFocusChange: (FocusState) -> Unit
+    onFocusChange: (FocusState) -> Unit,
 ) {
     Box(modifier) {
         BasicTextField(
@@ -30,7 +32,10 @@ fun TransparentTextField(
                 .onFocusChanged { onFocusChange(it) },
             onValueChange = onValueChange,
             singleLine = isSingleLine,
-            textStyle = textStyle
+            textStyle = textStyle.copy(
+                color = MaterialTheme.colors.onBackground
+            ),
+            cursorBrush = SolidColor(MaterialTheme.colors.onBackground)
         )
         if (text=="") {
             Text(

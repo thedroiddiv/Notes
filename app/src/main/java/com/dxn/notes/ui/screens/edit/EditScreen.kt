@@ -71,7 +71,8 @@ fun EditScreen(
                 hint = "Title...",
                 textStyle = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
                 onValueChange = { title = it },
-                onFocusChange = {})
+                onFocusChange = {}
+            )
             Spacer(modifier = Modifier.height(8.dp))
             TransparentTextField(
                 modifier = Modifier
