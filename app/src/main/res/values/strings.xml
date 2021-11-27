@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="activity_sign_in">SignIn</string>
+    <string name="notes_description">A simple and awesome notepad app. It gives you a quick and simple notepad editing experience when you write notes, memos, e-mails, messages, shopping lists and to-do lists. </string>
 </resources>
