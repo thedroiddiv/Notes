@@ -2,6 +2,7 @@ package com.dxn.notes.ui.screens
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.navArgument
@@ -15,6 +16,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 
+@ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable

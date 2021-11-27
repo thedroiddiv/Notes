@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import com.dxn.notes.ui.screens.App
@@ -20,6 +21,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var auth: FirebaseAuth
 
+    @ExperimentalMaterialApi
     @ExperimentalAnimationApi
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
