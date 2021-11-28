@@ -19,7 +19,7 @@ class NoteRepositoryImpl(
 ) : NoteRepository {
     @ExperimentalCoroutinesApi
     override fun getAllNotes(): Flow<Result<List<Note>>> = callbackFlow {
-        val listener = userCollection.document(auth.uid!!).collection("notes")
+        val listener = userCollection.document(auth.uid!!).collection("notes").apply {  }
             .addSnapshotListener { value, firestoreException ->
                 trySend(Result.Loading())
                 if (firestoreException != null) {

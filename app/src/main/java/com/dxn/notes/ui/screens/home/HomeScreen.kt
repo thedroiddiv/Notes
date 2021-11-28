@@ -40,9 +40,9 @@ fun HomeScreen(
     signOut: () -> Unit
 ) {
 
-    val notes by remember { viewModel.note }
+    var searchQuery by remember { mutableStateOf("") }
+    val notes by remember { viewModel.notes }
     var isDialogVisible by remember { mutableStateOf(false) }
-
 
     Scaffold(
         modifier = Modifier
@@ -59,7 +59,6 @@ fun HomeScreen(
 
         }
     ) {
-        var searchQuery by remember { mutableStateOf("") }
         val focusManager = LocalFocusManager.current
         Column {
             Spacer(modifier = Modifier.height(32.dp))
@@ -83,7 +82,7 @@ fun HomeScreen(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 onSearch = {
-
+                    viewModel.filterNotes(it)
                 },
                 focusManager = focusManager
             )
@@ -109,7 +108,12 @@ fun HomeScreen(
                 }
             }
             LazyVerticalGrid(cells = GridCells.Fixed(2)) {
-                items(notes) { note ->
+                items(notes.filter { note ->
+                    note.title.contains(searchQuery, true) || note.text.contains(
+                        searchQuery,
+                        true
+                    )
+                }) { note ->
                     val dismissState = rememberDismissState(
                         initialValue = DismissValue.Default,
                         confirmStateChange = {
@@ -129,30 +133,28 @@ fun HomeScreen(
                             }
                         )
                     }
-
                 }
             }
-            if (isDialogVisible) {
-                AlertDialog(
-                    onDismissRequest = { isDialogVisible = false },
-                    confirmButton = {
-                        TextButton(onClick = signOut) {
-                            Text(text = "Yes")
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(onClick = { isDialogVisible = false }) {
-                            Text(text = "No")
-                        }
-                    },
-                    title = {
-                        Text(text = "Sign out?")
-                    },
-                    backgroundColor = MaterialTheme.colors.background,
-                    contentColor = MaterialTheme.colors.onBackground
-                )
-            }
-
+        }
+        if (isDialogVisible) {
+            AlertDialog(
+                onDismissRequest = { isDialogVisible = false },
+                confirmButton = {
+                    TextButton(onClick = signOut) {
+                        Text(text = "Yes")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { isDialogVisible = false }) {
+                        Text(text = "No")
+                    }
+                },
+                title = {
+                    Text(text = "Sign out?")
+                },
+                backgroundColor = MaterialTheme.colors.background,
+                contentColor = MaterialTheme.colors.onBackground
+            )
         }
     }
 }

@@ -14,9 +14,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-val dummy =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat"
-
 @HiltViewModel
 class AppViewModel
 @Inject
@@ -24,8 +21,9 @@ constructor(
     private val noteRepository: NoteRepository
 ) : ViewModel() {
 
+    private val filter = mutableStateOf("")
     private val _notes = mutableStateOf(listOf<Note>())
-    val note: State<List<Note>> = _notes
+    val notes: State<List<Note>> = _notes
     private val error = mutableStateOf("")
     private val isLoading = mutableStateOf(false)
 
@@ -40,7 +38,9 @@ constructor(
         getAllJob = noteRepository.getAllNotes().onEach {
             when (it) {
                 is Result.Success -> {
-                    _notes.value = it.data!!
+                    _notes.value = it.data!!.filter { note: Note ->
+                        note.text.contains(filter.value) || note.title.contains(filter.value)
+                    }
                     isLoading.value = false
                 }
                 is Result.Loading -> {
@@ -52,6 +52,11 @@ constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun filterNotes(query: String) {
+        filter.value = query
+        notes
     }
 
     fun removeNote(uid: String) {
