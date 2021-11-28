@@ -1,5 +1,7 @@
 app/src/main/res/values/secrets.xml
 
+keystore/
+
 *.iml
 .gradle
 /local.properties
