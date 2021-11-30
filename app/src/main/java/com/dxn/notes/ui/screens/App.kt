@@ -13,9 +13,11 @@ import com.dxn.notes.ui.screens.home.HomeScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.firebase.auth.FirebaseUser
 import com.google.gson.Gson
 
+@ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi

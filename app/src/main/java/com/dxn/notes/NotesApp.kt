@@ -7,5 +7,4 @@ import javax.inject.Inject
 
 
 @HiltAndroidApp
-class NotesApp : Application() {
-}
+class NotesApp : Application() {}

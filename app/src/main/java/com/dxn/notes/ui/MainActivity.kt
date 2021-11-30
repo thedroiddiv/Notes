@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import com.dxn.notes.ui.screens.App
 import com.dxn.notes.ui.theme.NotesTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var auth: FirebaseAuth
 
+    @ExperimentalPagerApi
     @ExperimentalMaterialApi
     @ExperimentalAnimationApi
     @ExperimentalFoundationApi

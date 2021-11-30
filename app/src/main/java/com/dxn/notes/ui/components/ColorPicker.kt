@@ -26,11 +26,6 @@ fun ColorPicker(
     selected: Int,
     onSelect: (Int) -> Unit
 ) {
-//    Card(
-//        modifier = modifier.fillMaxWidth(),
-//        shape = RoundedCornerShape(16.dp),
-//        elevation = 4.dp,
-//    ) {
         LazyRow(
             Modifier
                 .padding(16.dp)
