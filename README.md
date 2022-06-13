@@ -1,10 +1,13 @@
-<div style="display: flex; justify-content: center; width:100vh;">
+<p align="center">
 <img src="https://raw.githubusercontent.com/divyansh-dxn/Notes/master/assets/icons/round/android/res/mipmap-xxxhdpi/ic_launcher_round.png"/>
-</div>
+</p>
+<h1 align="center">Notes</h1>
+<p align="center">
+A simple and awesome notepad app. It gives you a quick and simple notepad editing experience when you write notes, memos, e-mails, messages, shopping lists and to-do lists.The app can work both offline as well as online, as the internet gets available to the device ,data gets synced to firestore. Users can login with different google accounts.</p>
+</p>
 
 
-# Notes
-A simple and awesome notepad app. It gives you a quick and simple notepad editing experience when you write notes, memos, e-mails, messages, shopping lists and to-do lists.The app can work both offline as well as online, as the internet gets available to the device ,data gets synced to firestore. Users can login with different google accounts.
+
 
 ### Key Features
 - User authentiation with google
